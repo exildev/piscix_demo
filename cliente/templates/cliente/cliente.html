@@ -1,0 +1,346 @@
+<style>
+  #luminaria_single {
+    height: calc(100% - 202px);
+  }
+
+  .modal-content {
+    height: 100%;
+  }
+
+  .modal-body {
+    max-height: inherit;
+    height: calc(100% - 60px);
+  }
+</style>
+<!--script src="/static/elements/lib/webcomponentsjs/webcomponents-lite.js"></script>
+<link rel="import" href="/static/elements/lib/lib.v.html"-->
+<div id="cliente_single" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="background-color: #edeff1;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <!--h4 class="modal-title" id="myModalLabel">Luminaria</h4-->
+    </div>
+    <div class="modal-body">
+      {% if cliente %}
+      <div class="form-horizontal">
+        <div class="inner-center-column">
+          <ul id="suit_form_tabs" class="nav nav-tabs nav-tabs-suit" data-tab-prefix="suit-tab">
+            <li class="active">
+              <a href="#cliente">Cliente</a>
+            </li>
+            <li>
+              <a href="#piscina">Piscina</a>
+            </li>
+            <li class="">
+              <a href="#reporte">Reportes</a>
+            </li>
+            <li class="">
+              <a href="#reparacion">Reparaciones</a>
+            </li>
+            <li class="">
+              <a href="#mantenimiento">Mantenimientos</a>
+            </li>
+          </ul>
+          <div class="tab-content tab-content-main">
+            <fieldset class="module aligned first suit-tab suit-tab-cliente show">
+              <div class="control-group form-row field-nombre">
+                <div>
+                  <div class="control-label">
+                    Nombre:
+                  </div>
+                  <div class="controls">
+                    {{ cliente.nombre }}
+                  </div>
+                </div>
+              </div>
+              <div class="control-group form-row field-apellidos">
+                <div>
+                  <div class="control-label">
+                    Apellidos:
+                  </div>
+                  <div class="controls">
+                    {{ cliente.apellidos }}
+                  </div>
+                </div>
+              </div>
+              <div class="control-group form-row field-email">
+                <div>
+                  <div class="control-label">
+                    Email:
+                  </div>
+                  <div class="controls">
+                    {{ cliente.email }}
+                  </div>
+                </div>
+              </div>
+              <div class="control-group form-row field-fecha">
+                <div>
+                  <div class="control-label">
+                    Fecha de nacimiento:
+                  </div>
+                  <div class="controls">
+                    {{ cliente.fecha }}
+                  </div>
+                </div>
+              </div>
+              <div class="control-group form-row field-direccion">
+                <div>
+                  <div class="control-label">
+                    Dirección:
+                  </div>
+                  <div class="controls">
+                    {{ cliente.direccion }}
+                  </div>
+                </div>
+              </div>
+              <div class="control-group form-row field-telefono">
+                <div>
+                  <div class="control-label">
+                    Telefono:
+                  </div>
+                  <div class="controls">
+                    {{ cliente.telefono }}
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+            <div id="piscina-group" class="inline-group suit-tab suit-tab-piscina">
+              {% if cliente.piscina %}
+              <div class="inline-related dynamic-activoserial_set" id="activoserial_set-{{forloop.counter}}">
+                <h3><b>{{ cliente.piscina.articulo.nombre }}</b>&nbsp;<span class="inline_label"></span></h3>
+                <fieldset class="module aligned first">
+                  <div class="control-group form-row field-nombre">
+                    <div>
+                      <div class="control-label">
+                        Nombre:
+                      </div>
+                      <div class="controls">
+                        {{ cliente.piscina.articulo.nombre }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group form-row field-descripcion">
+                    <div>
+                      <div class="control-label">
+                        Descripción:
+                      </div>
+                      <div class="controls">
+                        {{ cliente.piscina.articulo.descripcion }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group form-row field-fabricante">
+                    <div>
+                      <div class="control-label">
+                        Fabricante:
+                      </div>
+                      <div class="controls">
+                        {{ cliente.piscina.articulo.fabricante.nombre }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group form-row field-serial">
+                    <div>
+                      <div class="control-label">
+                        Serial:
+                      </div>
+                      <div class="controls">
+                        {{ cliente.piscina.serial }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group form-row field-medidas">
+                    <div>
+                      <div class="control-label">
+                        Medidas:
+                      </div>
+                      <div class="controls">
+                        {{ cliente.piscina.medidas }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group form-row field-tipo">
+                    <div>
+                      <div class="control-label">
+                        Tipo de piscina:
+                      </div>
+                      <div class="controls">
+                        {{ cliente.piscina.tipo.nombre }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group form-row field-nombre">
+                    <div>
+                      <div class="control-label">
+                        Imagen:
+                      </div>
+                      <div class="controls">
+                        <img src="/media/{{ cliente.piscina.articulo.imagen }}" alt="Imagen" with="100" height="100"/>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              {% else %}
+              <h2>No hay piscina</h2>
+            {% endif %}
+            </div>
+            <div id="reporte-group" class="inline-group suit-tab suit-tab-reporte">
+              {% if reporte %}
+              {% for r in reporte %}
+              <div class="inline-related dynamic-reporte_set" id="reporte_set-{{forloop.counter}}">
+                <h3><b>{{ r.nombre }}</b>&nbsp;<span class="inline_label"></span></h3>
+                <fieldset class="module aligned first">
+                  <div class="control-group form-row field-tipo">
+                    <div>
+                      <div class="control-label">
+                        Tipo:
+                      </div>
+                      <div class="controls">
+                        {{ r.tipo.nombre }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group form-row field-reporta">
+                    <div>
+                      <div class="control-label">
+                        Reporta:
+                      </div>
+                      <div class="controls">
+                        {{ r.reporta.first_name }} {{ r.reporta.last_name }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group form-row field-descripcion">
+                    <div>
+                      <div class="control-label">
+                        Descripción:
+                      </div>
+                      <div class="controls">
+                        {{ r.descripcion }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group form-row field-fecha">
+                    <div>
+                      <div class="control-label">
+                        Fecha:
+                      </div>
+                      <div class="controls">
+                        {{ r.fecha }}
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              {% endfor %}
+              {% else %}
+              <h2>No hay ningún reporte</h2>
+              {% endif %}
+            </div>
+            <div id="reparacion-group" class="inline-group suit-tab suit-tab-reparacion">
+              {% if reparacion %}
+              {% for r in reparacion %}
+              <div class="inline-related dynamic-reporte_set" id="reporte_set-{{forloop.counter}}">
+                <h3><b>{{ r.nombre }}</b>&nbsp;<span class="inline_label"></span></h3>
+                <fieldset class="module aligned first">
+                  <div class="control-group form-row field-reporta">
+                    <div>
+                      <div class="control-label">
+                        Reporta:
+                      </div>
+                      <div class="controls">
+                        {{ r.piscinero.first_name }} {{ r.piscinero.last_name }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group form-row field-descripcion">
+                    <div>
+                      <div class="control-label">
+                        Descripción:
+                      </div>
+                      <div class="controls">
+                        {{ r.descripcion }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group form-row field-fecha">
+                    <div>
+                      <div class="control-label">
+                        Fecha:
+                      </div>
+                      <div class="controls">
+                        {{ r.fecha }}
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              {% endfor %}
+              {% else %}
+              <h2>No hay ninguna reparación</h2>
+              {% endif %}
+            </div>
+            <div id="mantenimiento-group" class="inline-group suit-tab suit-tab-mantenimiento">
+              {% if mantenimiento %}
+              {% for r in mantenimiento %}
+              <div class="inline-related dynamic-reporte_set" id="reporte_set-{{forloop.counter}}">
+                <h3><b>{{ r.nombre }}</b>&nbsp;<span class="inline_label"></span></h3>
+                <fieldset class="module aligned first">
+                  <div class="control-group form-row field-reporta">
+                    <div>
+                      <div class="control-label">
+                        Reporta:
+                      </div>
+                      <div class="controls">
+                        {{ r.piscinero.first_name }} {{ r.piscinero.last_name }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group form-row field-descripcion">
+                    <div>
+                      <div class="control-label">
+                        Descripción:
+                      </div>
+                      <div class="controls">
+                        {{ r.descripcion }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="control-group form-row field-fecha">
+                    <div>
+                      <div class="control-label">
+                        Fecha:
+                      </div>
+                      <div class="controls">
+                        {{ r.fecha }}
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+              {% endfor %}
+              {% else %}
+              <h2>No hay ningún mantenimiento</h2>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div class="form-horizontal">
+        <div class="inner-center-column">
+          <h2>Ups, algo salio mal.</h2>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      {% if cliente %}
+      <!--button type="button" class="btn btn-high btn-info">Save changes</button-->
+      <a href="/dashboard/cliente/cliente/{{ cliente.id }}/change/" class="btn btn-high btn-info">Editar</a>
+      {% endif%}
+    </div>
+  </div>
+  <div>
